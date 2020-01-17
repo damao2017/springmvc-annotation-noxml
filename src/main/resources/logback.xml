@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds"
+	debug="false">
+
+
+	<!-- TRACE<DEBUG<INFO<WARN<ERROR -->
+	<!-- property 全局变量，通过${}来引用 -->
+	<property name="context.name" value="springmvc-annotation-noxml" />
+
+	<property name="log.level" value="debug" />
+	<property name="log.maxHistory" value="30" />
+	<property name="logs.dir"
+		value="${catalina.base}/webapps/${context.name}/logs" />
+	<property name="log.pattern"
+		value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n" />
+
+	<contextName>${context.name}</contextName>
+
+	<appender name="consoleAppender"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<!-- <charset>UTF-8</charset> console不用配置 否则中文乱码 -->
+			<pattern>${log.pattern}</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="allAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>${log.pattern}</pattern>
+		</encoder>
+
+		<file>${logs.dir}/all.log</file>
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${logs.dir}/all.%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+			<maxHistory>${log.maxHistory}</maxHistory>
+		</rollingPolicy>
+
+	</appender>
+
+	<appender name="debugAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>${log.pattern}</pattern>
+		</encoder>
+
+		<file>${logs.dir}/debug/debug.log</file>
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${logs.dir}/debug/debug.%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+			<maxHistory>${log.maxHistory}</maxHistory>
+		</rollingPolicy>
+
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>DEBUG</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+
+	<appender name="infoAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>${log.pattern}</pattern>
+		</encoder>
+
+		<file>${logs.dir}/info/info.log</file>
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${logs.dir}/info/info.%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+			<maxHistory>${log.maxHistory}</maxHistory>
+		</rollingPolicy>
+
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+
+	<appender name="errorAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>${log.pattern}</pattern>
+		</encoder>
+
+		<file>${logs.dir}/error/error.log</file>
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${logs.dir}/error/error.%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+			<maxHistory>${log.maxHistory}</maxHistory>
+		</rollingPolicy>
+
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+	</appender>
+
+	<root level="${log.level}">
+		<appender-ref ref="consoleAppender" />
+	</root>
+
+	<logger name="com.ntkd" level="${log.level}" additivity="true">
+		<appender-ref ref="allAppender" />
+		<appender-ref ref="infoAppender" />
+		<appender-ref ref="debugAppender" />
+		<appender-ref ref="errorAppender" />
+	</logger>
+
+</configuration>
