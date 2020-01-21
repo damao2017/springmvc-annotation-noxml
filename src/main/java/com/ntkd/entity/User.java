@@ -1,4 +1,7 @@
 package com.ntkd.entity;
+
+import java.io.Serializable;
+
 /**
  *  @description 
  *	@author NTDM
@@ -6,20 +9,23 @@ package com.ntkd.entity;
  *
  */
 
-public class User {
+public class User implements Serializable{
 	
 	private Integer id;
 	private String name;
 	private Integer age;
+	private String password;
+	
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public User(Integer id, String name, Integer age) {
+	public User(Integer id, String name, Integer age, String password) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.age = age;
+		this.password = password;
 	}
 	public Integer getId() {
 		return id;
@@ -42,10 +48,17 @@ public class User {
 	public void setAge(Integer age) {
 		this.age = age;
 	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", age=" + age + "]";
+		return "User [id=" + id + ", name=" + name + ", age=" + age + ", password=" + password + "]";
 	}
+
 	
 	
 

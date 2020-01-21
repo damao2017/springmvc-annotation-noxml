@@ -36,7 +36,7 @@ public class ControllerExceptionResolver {
 	public Object defaultExceptionHandler(Exception e) {
 		AjaxResult msg = new AjaxResult();
 		msg.setSuccess(false);
-		msg.setData("未知异常"+e.toString());
+		msg.setData("未知异常："+e.toString());
 		logger.error("未知异常:",e);
 		return msg;
 	}

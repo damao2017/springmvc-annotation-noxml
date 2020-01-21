@@ -8,6 +8,6 @@
 </head>
 <body>
 	<h1>index</h1>
-	<img src="timg.jpg">
+	<img src="assets/images/timg.jpg">
 </body>
 </html>

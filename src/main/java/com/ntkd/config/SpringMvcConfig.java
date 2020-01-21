@@ -1,22 +1,22 @@
 package com.ntkd.config;
 
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-
-import com.ntkd.interceptor.MyInterceptor;
 
 //spring mvc 配置文件，只扫描Controller
 @ComponentScan(value = { "com.ntkd" }, 
 			   includeFilters = {@Filter(type = FilterType.ANNOTATION, classes = { Controller.class }) }, 
 			    useDefaultFilters = false)
 @EnableWebMvc
+//开启aop
+@EnableAspectJAutoProxy(proxyTargetClass=true)
 public class SpringMvcConfig extends WebMvcConfigurerAdapter {
 //	定制
 
@@ -33,10 +33,12 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
 		configurer.enable();
 	}
 
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		// /** 任意路径任意请求
-		registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**");
-	}
+//	@Override
+//	public void addInterceptors(InterceptorRegistry registry) {
+//		// /** 任意路径任意请求
+//		registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**");
+//	}
+	
+
 
 }
